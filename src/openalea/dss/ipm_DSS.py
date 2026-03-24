@@ -20,7 +20,7 @@ def patch_call(instance, func, doc):
     instance.__class__ = _
     instance.__call__.__func__.__doc__ = doc
 
-class DSS(object):
+class DSS:
     def __init__(self, name, meta, models, manager):
         self.name = name
         self.meta = meta
@@ -71,7 +71,9 @@ class DSS(object):
              return model
         else:
             raise ValueError('Model ' + model_name + ' not found in ' + self.name)
-class Model(object):
+
+
+class Model:
     """ Model Class derived from Hub. It allows to displays informations and run model and plot output
 
     Parameters
