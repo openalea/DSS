@@ -1,0 +1,131 @@
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools_scm",
+]
+build-backend = "setuptools.build_meta"
+
+# where your source lies if you followed src layout
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = true
+
+[tool.setuptools]
+include-package-data = false # force explicit declaration of data (disable automatic inclusion)
+
+[tool.setuptools.package-data]
+"openalea.dss" = ["data/*"]
+"*" = ['*.txt', '*.png', '*.csv', '*.json']
+
+# enable dynamic version based on git tags
+[tool.setuptools_scm]
+# Format version to ease alignment with conda/meta.yaml tag-based versioning
+fallback_version = "2.1.0"
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
+
+
+[project]
+name = "openalea.dss"
+authors = [
+  { name = "Christian Fournier"},
+  { name = "Christophe Pradal"},
+  { name = "Marc Labadie"},
+]
+
+description = 'Management of IPM DSS from Python, that transforms DSS outputs into efficient Python data structure '
+readme = "README.md"
+license = "CECILL-C"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dynamic = ["version"]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering",
+]
+keywords = ["OpenAlea", "DSS", "weather", "IPM"]
+
+# you can list here all dependencies that are pip-instalable, and that have a name identical to the one used by conda (to allow reuse of this list in meta.yaml)
+# If conda name is different, please do not declare the pip name, and declare conda name in the next section
+dependencies = [
+  "fastapi",
+  "pydantic",
+  "pandas",
+  "xarray",
+  "numpy",
+]
+
+
+[project.entry-points."wralea"]
+
+plgov="openalea.ipmdss_wralea.pl_gov_edwin"
+nibio="openalea.ipmdss_wralea.no_nibio_vips"
+wur="openalea.ipmdss_wralea.nl_wur_IWMPRAISE"
+adas="openalea.ipmdss_wralea.adas_datamanipulation"
+ipmwise="openalea.ipmdss_wralea.com_ipmwise"
+dk="openalea.ipmdss_wralea.dk_au_agro"
+slug="openalea.ipmdss_wralea.slugstatus_farming_co_uk"
+best4soil="openalea.ipmdss_wralea.Best4Soil_Support_Tools"
+ahdb="openalea.ipmdss_wralea.AHDB_OSR_disease_forecasts"
+wur2="openalea.ipmdss_wralea.nl_wur_LateBlight"
+isip="openalea.ipmdss_wralea.de_ISIP"
+seges="openalea.ipmdss_wralea.dk_seges"
+adas2="openalea.ipmdss_wralea.adas_dss"
+horta="openalea.ipmdss_wralea.it_horta_dss"
+gaia="openalea.ipmdss_wralea.gr_gaiasense_ipm"
+warwick="openalea.ipmdss_wralea.uk_WarwickHRI"
+dss="openalea.ipmdss_wralea"
+
+[tool.conda.environment]
+channels = [
+  "openalea3",
+  "conda-forge"
+]
+dependencies = [
+    "openalea.agroservices",
+    "openalea.weatherdata",
+    "matplotlib-base",
+    "fastapi",
+    "pydantic",
+    "pandas",
+    "xarray",
+    "numpy",
+    "scipy"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "nbmake",
+]
+dev = [
+  "pytest >=6",
+  "pytest-cov >=3",
+]
+doc = [
+  "sphinx-autobuild",
+  "pydata-sphinx-theme",
+  "myst-parser",
+  "sphinx-favicon",
+  "ipykernel",
+  "sphinx-copybutton",
+  "ipython_genutils",
+  "nbsphinx",
+]
+
+[project.urls]
+Repository = "https://github.com/openalea/DSS"
+Homepage = "https://ipmdss.readthedocs.io"
+"Bug Tracker" = "https://github.com/openalea/DSS/issues"
+Discussions = "https://github.com/openalea/DSS/discussions"
+Changelog = "https://github.com/openalea/DSS/releases"
+
