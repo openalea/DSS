@@ -1,6 +1,6 @@
 """Faker classes"""
 
-import openalea.agroservices.ipm.fakers as agro_fakers
+from openalea.agroservices.ipm import fakers as agro_fakers
 from openalea.weatherdata.converters import weather_data_as_xarray
 
 class WeatherDataSource:
