@@ -3,7 +3,7 @@
 
 
 from openalea.dss import Manager
-from weatherdata.ipm import WeatherDataHub
+from openalea.weatherdata.ipm import WeatherDataHub
 import xarray as xr
 
 h= Manager()
