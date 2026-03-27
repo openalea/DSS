@@ -351,8 +351,8 @@ class Model:
                         ],
                         "fieldObservationQuantifications":
                             [
-                                {"trapCountCropEdge":int(fieldObservation.trapCountCropEdge.dropna().values),
-                                "trapCountCropInside":int(fieldObservation.trapCountCropInside.dropna().values)
+                                {"trapCountCropEdge":sum(fieldObservation.trapCountCropEdge.dropna().values),
+                                "trapCountCropInside":sum(fieldObservation.trapCountCropInside.dropna().values)
                                 }
                             ]
                         }
@@ -361,7 +361,7 @@ class Model:
                     field_observation_input={
                         "modelId":self.model,
                         "configParameters":
-                            {"timeZone": fieldObservation.index.tz._tzname,
+                            {"timeZone": fieldObservation.index.tz.key,
                             "startDateCalculation":np.datetime_as_string(pandas.Timestamp.to_datetime64(fieldObservation.index[0]), unit='D'),
                             "endDateCalculation":np.datetime_as_string(pandas.Timestamp.to_datetime64(fieldObservation.index[-1]), unit='D')
                             }
