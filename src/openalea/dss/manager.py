@@ -1,8 +1,8 @@
 """Mother class managing DSS catalog"""
 import pandas
 
-from agroservices.ipm.ipm import IPM
-import agroservices.ipm.fakers as agro_fakers
+from openalea.agroservices.ipm.ipm import IPM
+import openalea.agroservices.ipm.fakers as agro_fakers
 from openalea.dss.ipm_DSS import DSS
 import openalea.dss.fakers as fakers
 

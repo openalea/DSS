@@ -1,5 +1,21 @@
 import pandas
 import numpy
+
+
+def angle_between_vectors(v1, v2):
+    """Calcule l'angle entre deux vecteurs en radians"""
+    v1 = numpy.array(v1)
+    v2 = numpy.array(v2)
+    
+    # Produit scalaire / (norme v1 * norme v2)
+    cos_angle = numpy.dot(v1, v2) / (numpy.linalg.norm(v1) * numpy.linalg.norm(v2))
+    
+    # Clamp pour éviter les erreurs d'arrondi
+    cos_angle = numpy.clip(cos_angle, -1.0, 1.0)
+    
+    angle_rad = numpy.arccos(cos_angle)
+    return angle_rad
+
 """ Short meteorological models """
 def linear_degree_days(varname,data, start_date=None, base_temp=0., max_temp=35.):
     df = data[varname].copy()
@@ -254,13 +270,12 @@ def wind_speed_on_leaf(wind_speed=0., leaf_height=0., canopy_height=0., lai=0., 
     wind_speed_on_leaf: float
         Wind speed on the given leaf
     """
-    from math import exp
-    from openalea.plantgl import all as pgl
+    from math import exp, degrees
     
     eta = canopy_height * ( (cd*lai/canopy_height)/(2*lc**2) )**(1./3)
     
     if is_in_rows:
-        angle = degrees(pgl.angle(row_direction, wind_direction))
+        angle = numpy.degrees(angle_between_vectors(row_direction, wind_direction))
         reduction = param_reduc * (1-angle/90)
         return wind_speed * exp(max(0., eta-reduction)*((leaf_height/canopy_height)-1))
     else:
